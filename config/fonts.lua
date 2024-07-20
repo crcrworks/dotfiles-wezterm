@@ -9,6 +9,6 @@ return {
 		},
 		-- { family = "Symbols Nerd Font Mono" }
 	}),
-	font_size = 20,
+	font_size = 18,
 	-- harfbuzz_features = { "calt=0", "clig=1", "liga=0" },
 }
