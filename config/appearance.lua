@@ -1,5 +1,50 @@
 local wezterm = require("wezterm")
-local custom_colors = require("colors.custom")
+
+local function tab_title(tab_info)
+	local title = tab_info.tab_title
+	-- if the tab title is explicitly set, take that
+	if title and #title > 0 then
+		return title
+	end
+	-- Otherwise, use the title from the active pane
+	-- in that tab
+	return tab_info.active_pane.title
+end
+
+wezterm.on("format-tab-title", function(tab, tabs, panes, conf, hover, max_width)
+	local background = "#2E383C"
+	local foreground = "#D3C6AA"
+	local edge_background = "#2E383C"
+
+	if tab.is_active or hover then
+		background = "#83c092"
+		foreground = "#1E2326"
+	end
+	local edge_foreground = background
+
+	local title = tab_title(tab)
+
+	-- ensure that the titles fit in the available space,
+	-- and that we have room for the edges.
+
+	local max = 20 - 9
+	if #title > max then
+		title = wezterm.truncate_right(title, max) .. "…"
+	end
+
+	return {
+		{ Background = { Color = edge_background } },
+		{ Foreground = { Color = edge_foreground } },
+		{ Text = " " },
+		{ Background = { Color = background } },
+		{ Foreground = { Color = foreground } },
+		{ Attribute = { Intensity = tab.is_active and "Bold" or "Normal" } },
+		{ Text = " " .. (tab.tab_index + 1) .. ": " .. title .. " " },
+		{ Background = { Color = edge_background } },
+		{ Foreground = { Color = edge_foreground } },
+		{ Text = "" },
+	}
+end)
 
 return {
 	color_scheme = "Everforest Dark (Gogh)",
@@ -16,13 +61,24 @@ return {
 		top = 5,
 		bottom = 5,
 	},
+	colors = {
+		tab_bar = {
+			background = "#2E383C",
+		},
+	},
+	tab_bar_style = {},
+	window_frame = {
+		border_bottom_height = "0.5cell",
+		font_size = 5.0,
+	},
 
 	initial_rows = 50,
 	initial_cols = 100,
-
+	tab_max_width = 20,
 	show_tabs_in_tab_bar = true,
-	-- hide_tab_bar_if_only_one_tab = true,
-	use_fancy_tab_bar = true,
+	show_tab_index_in_tab_bar = false,
+	hide_tab_bar_if_only_one_tab = false,
+	use_fancy_tab_bar = false,
 	tab_bar_at_bottom = true,
 	show_new_tab_button_in_tab_bar = false,
 }
