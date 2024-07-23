@@ -12,13 +12,13 @@ local function tab_title(tab_info)
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, conf, hover, max_width)
-	local background = "#2E383C"
+	local background = "#2D353B"
 	local foreground = "#D3C6AA"
-	local edge_background = "#2E383C"
+	local edge_background = "#2D353B"
 
 	if tab.is_active or hover then
 		background = "#83c092"
-		foreground = "#1E2326"
+		foreground = "#2D353B"
 	end
 	local edge_foreground = background
 
@@ -63,7 +63,7 @@ return {
 	},
 	colors = {
 		tab_bar = {
-			background = "#2E383C",
+			background = "#2D353B",
 		},
 	},
 	tab_bar_style = {},
