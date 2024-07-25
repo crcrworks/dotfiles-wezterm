@@ -7,7 +7,7 @@ return {
 			family = "JetBrains Mono",
 			-- assume_emoji_presentation = true,
 		},
-		-- { family = "Symbols Nerd Font Mono" }
+		{ family = "UDEV Gothic 35JPDOC" },
 	}),
 	font_size = 18,
 	-- harfbuzz_features = { "calt=0", "clig=1", "liga=0" },
