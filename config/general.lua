@@ -1,4 +1,5 @@
-local wezterm = require("wezterm")
+local w = require("wezterm")
+local act = w.action
 
 return {
 	-- use_ime = true,
@@ -6,18 +7,35 @@ return {
 	allow_square_glyphs_to_overflow_width = "Never",
 	window_close_confirmation = "NeverPrompt",
 	max_fps = 165,
+	leader = { key = "a", mods = "CTRL" },
 
 	keys = {
-		-- This will create a new split and run your default program inside it
+
 		{
-			key = "p",
-			mods = "CTRL|SHIFT",
-			action = wezterm.action.SplitVertical({ domain = "CurrentPaneDomain" }),
+			key = "\\",
+			mods = "CTRL",
+			action = act.SplitVertical({ domain = "CurrentPaneDomain" }),
 		},
 		{
-			key = '"',
-			mods = "CTRL|SHIFT",
-			action = wezterm.action.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+			key = "|",
+			mods = "SHIFT|CTRL",
+			action = act.SplitHorizontal({ domain = "CurrentPaneDomain" }),
+		},
+		{
+			key = "LeftArrow",
+			mods = "SHIFT|CTRL|CMD",
+			action = act.AdjustPaneSize({ "Left", 10 }),
+		},
+		{
+			key = "RightArrow",
+			mods = "SHIFT|CTRL|CMD",
+			action = act.AdjustPaneSize({ "Down", 10 }),
+		},
+		{ key = "UpArrow", mods = "SHIFT|CTRL|CMD", action = act.AdjustPaneSize({ "Up", 10 }) },
+		{
+			key = "RightArrow",
+			mods = "SHIFT|CTRL|CMD",
+			action = act.AdjustPaneSize({ "Right", 10 }),
 		},
 	},
 }
